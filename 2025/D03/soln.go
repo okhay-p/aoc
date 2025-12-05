@@ -5,9 +5,11 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func main() {
+	curTime := time.Now()
 	content, err := os.ReadFile("input.txt")
 	banks := strings.Split(string(content), "\n")
 	if err != nil {
@@ -15,11 +17,11 @@ func main() {
 		return
 	}
 
-	var res int;
+	var res int
 
 	for _, bank := range banks {
 		bankArr := strings.Split(bank, "")
-		if len(bankArr) <=0 {
+		if len(bankArr) <= 0 {
 			break
 		}
 		var numArr []int
@@ -27,7 +29,6 @@ func main() {
 			intC, _ := strconv.Atoi(c)
 			numArr = append(numArr, intC)
 		}
-
 
 		// part 1
 		// sI, sV := getMax(numArr[:len(numArr)-1])
@@ -43,13 +44,13 @@ func main() {
 		ls := 0
 		// fmt.Println("bank:",bank)
 		bankMax := ""
-		for nd := 11; nd >= 0; nd--{
+		for nd := 11; nd >= 0; nd-- {
 			// fmt.Println(numArr)
 			// fmt.Println("remaining length",len(numArr))
 			// fmt.Println("nd",nd)
-			if len(numArr) == nd+1{
+			if len(numArr) == nd+1 {
 				nd = 0
-				strArr := []string {}
+				strArr := []string{}
 				for _, n := range numArr {
 					ns := strconv.Itoa(n)
 					strArr = append(strArr, ns)
@@ -67,18 +68,19 @@ func main() {
 			// fmt.Println("digit:", 12-nd)
 			// fmt.Println("cV",cV)
 			// fmt.Println("ls",ls)
-			bankMax+=strconv.Itoa(cV)
+			bankMax += strconv.Itoa(cV)
 			// fmt.Println()
 		}
 		// fmt.Println("bankMax",bankMax)
 		bm, err := strconv.Atoi(bankMax)
-		if err != nil{
+		if err != nil {
 			fmt.Println(err)
 		}
 		res += bm
 
 	}
 	fmt.Println(res)
+	fmt.Println(time.Since(curTime))
 
 }
 
@@ -93,5 +95,5 @@ func getMax(arr []int) (int, int) {
 		}
 	}
 
-    return maxIdx, curMax
+	return maxIdx, curMax
 }
